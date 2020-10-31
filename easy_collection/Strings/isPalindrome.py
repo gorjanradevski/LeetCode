@@ -3,20 +3,26 @@
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s = s.lower()
-        s_list = []
-        for char in s:
-            if char.isalnum():
-                s_list.append(char)
-        size = len(s_list)
-        if s_list == 0:
+        # Without new memory
+        size = len(s)
+        if size == 0:
             return True
-        for i in range(size // 2):
-            if s_list[i] != s_list[-(i + 1)]:
+        i = 0
+        j = size - 1
+        while i < size and j >= 0:
+            if not s[i].isalnum():
+                i += 1
+                continue
+            if not s[j].isalnum():
+                j -= 1
+                continue
+            if s[i].lower() != s[j].lower():
                 return False
+            i += 1
+            j -= 1
         return True
 
 
 if __name__ == "__main__":
     s = Solution()
-    print(s.isPalindrome("A man, a plan, a canal: Panama"))
+    print(s.isPalindrome("race a car"))
